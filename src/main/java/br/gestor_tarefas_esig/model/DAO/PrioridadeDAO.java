@@ -13,9 +13,7 @@ public class PrioridadeDAO {
 	private EntityManager getEntityManager() {
 	    EntityManagerFactory factory = null;
 	    EntityManager entityManager = null;
-	    //Obtém o factory a partir da unidade de persistência.
 	    factory = Persistence.createEntityManagerFactory("GestorTarefasDB");
-	    //Cria um entity manager.
 	    if (entityManager == null) {
 	    	entityManager = factory.createEntityManager();
     	}
@@ -28,7 +26,6 @@ public class PrioridadeDAO {
 		  List<Prioridade>  prioridades = null;
 		  EntityManager entityManager = getEntityManager();
 		  try {
-			  // Inicia uma transação com o banco de dados.
 			  entityManager.getTransaction().begin();
 			  prioridades = entityManager.createQuery("Select u from br.gestor_tarefas_esig.model.Entity.Prioridade u")
 	    		  .getResultList();
@@ -45,7 +42,6 @@ public class PrioridadeDAO {
 		Prioridade prioridade = null;
 		EntityManager entityManager = getEntityManager();
 	    try {
-	    	// Inicia uma transação com o banco de dados.
 	    	entityManager.getTransaction().begin();
 	    	prioridade = entityManager.find(Prioridade.class, id);
 	    }catch (Exception e) {

@@ -16,7 +16,6 @@ public class TarefaDAO {
 	private EntityManager getEntityManager() {
 		EntityManagerFactory factory = null;
 	    EntityManager entityManager = null;
-	    //Obtém o factory a partir da unidade de persistência.
 	    factory = Persistence.createEntityManagerFactory("GestorTarefasDB");
 	    if (entityManager == null) {
 	    	entityManager = factory.createEntityManager();
@@ -27,20 +26,15 @@ public class TarefaDAO {
 	public void salvar(Tarefa tarefa) throws Exception {
 		EntityManager entityManager = getEntityManager();
 		try {
-			// Inicia uma transação com o banco de dados.
 			entityManager.getTransaction().begin();
 			
-			// Verifica se a pessoa ainda não está salva no banco de dados.
 			if(tarefa.getId() == 0) {
-				//Salva os dados da Tarefa.
 				System.out.println("incluindo a tarefa.");
 				entityManager.persist(tarefa);
 			} else {
-				//Atualiza os dados da pessoa.
 				System.out.println("atualizando a tarefa.");
 				tarefa = entityManager.merge(tarefa);
 			}
-			// 	Finaliza a transação.
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -51,13 +45,9 @@ public class TarefaDAO {
 	public void excluir(int id) {
 		EntityManager entityManager = getEntityManager();
 		try {
-			// Inicia uma transação com o banco de dados.
 		    entityManager.getTransaction().begin();
-		    // Consulta a pessoa na base de dados através do seu ID.
 		    Tarefa tarefa = entityManager.find(Tarefa.class, id);
-		    // Remove a pessoa da base de dados.
 		    entityManager.remove(tarefa);
-		    // Finaliza a transação.
 		    entityManager.getTransaction().commit();
 		    }catch (Exception e) {
 		    	e.printStackTrace();
@@ -70,7 +60,6 @@ public class TarefaDAO {
 		EntityManager entityManager = getEntityManager();
 		List<Tarefa>  tarefas = null;
 		try {
-			// Inicia uma transação com o banco de dados.
 		    entityManager.getTransaction().begin();
 		    tarefas = entityManager.createQuery("SELECT e FROM br.gestor_tarefas_esig.model.Entity.Tarefa e inner join e.responsavel WHERE e.st_concluida = false")
 		    		  .getResultList();  

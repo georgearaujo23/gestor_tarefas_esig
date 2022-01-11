@@ -13,9 +13,7 @@ public class ResponsavelDAO {
     private EntityManager getEntityManager() {
 	    EntityManagerFactory factory = null;
 	    EntityManager entityManager = null;
-	    //Obtém o factory a partir da unidade de persistência.
 	    factory = Persistence.createEntityManagerFactory("GestorTarefasDB");
-	    //Cria um entity manager.
 	    if (entityManager == null) {
 	    	entityManager = factory.createEntityManager();
 	    }
@@ -28,7 +26,6 @@ public class ResponsavelDAO {
 		List<Responsavel>  responsaveis = null;
 		EntityManager entityManager = getEntityManager();
 	    try {
-	      // Inicia uma transação com o banco de dados.
 	      entityManager.getTransaction().begin();
 	      responsaveis = entityManager.createQuery("Select u from br.gestor_tarefas_esig.model.Entity.Responsavel u")
 	    		  .getResultList();
@@ -45,7 +42,6 @@ public class ResponsavelDAO {
 		  Responsavel responsavel = null;
 		  EntityManager entityManager = getEntityManager();
 		  try {
-			  // Inicia uma transação com o banco de dados.
 			  entityManager.getTransaction().begin();
 			  responsavel = entityManager.find(Responsavel.class, id);
 	      
