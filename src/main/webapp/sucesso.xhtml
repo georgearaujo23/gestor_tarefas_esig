@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Sucesso </title>
+</h:head>
+
+<h:body>
+
+<table> 
+	<tr> 
+		<td>Título: </td>
+		<td><h:outputText value="#{helloWorldMBean.tarefa.titulo}" /> </td>
+	</tr> 
+	<tr> 
+		<td> Descrição: </td> 
+		<td> <h:outputText value="#{helloWorldMBean.tarefa.descricao}" /> </td> 
+	</tr> 
+	<tr> 
+		<td>Deadline: </td> 
+		<td> 
+			<h:outputText value="#{helloWorldMBean.tarefa.deadline}"> 
+			<f:convertDateTime pattern="dd/MM/yyyy" /> 
+			</h:outputText> 
+		</td> 
+	</tr> 
+	<tr> 
+		<td>Sexo: </td> 
+		<td> 
+			<h:outputText value="#{helloWorldMBean.tarefa.st_concluida}" /> 
+		</td> 
+	</tr>
+</table>
+</h:body> 
+</html>

@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+		<title>Tarefas</title>
+	</h:head>
+
+	<h:body>
+		<div class="container">
+	  		<div class="navbar navbar-inverse">
+	            <div class="navbar-brand">Lista de Atividades</div>
+	        </div>
+        	<div class="row">
+				<h:form styleClass="form-horizontal" id="formFiltro">
+					<div class="row">
+						<div class="form-group">
+						
+								<h:outputLabel value="Número" styleClass="control-label col-sm-2" />
+								<div class="col-sm-10">
+								<h:inputText id="idFiltro" styleClass="form-control" value="#{listarTarefasMBean.idFiltro}" size="50">
+								</h:inputText>
+								</div>
+						 </div>
+						<div class="form-group">		
+									
+							<h:outputLabel value="Título/Descriçao" styleClass="control-label col-sm-2" />
+							<div class="col-sm-10">
+							<h:inputText id="tituloDescricaoFiltro" styleClass="form-control" value="#{listarTarefasMBean.tituloDescricaoFiltro}" size="50">
+							</h:inputText>
+							</div>
+					 	</div>
+					 	<div class="input-group">
+						 	<div class="form-group col-sm-6">	
+								<h:outputLabel value="Responsável" styleClass="control-label col-sm-2" /> 
+								<h:selectOneMenu 
+									styleClass="form-select col-sm-10" 
+									id="Responsavel"
+			                        value="#{listarTarefasMBean.responsavelFiltro}"
+			                        converter="responsavelConverter">
+										<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			                        	<f:selectItems value="#{cadastrarMBean.responsaveis}" var="responsavel"
+			                            itemLabel="#{responsavel.nome}" itemValue="#{responsavel}" />
+		                    	</h:selectOneMenu>
+							</div>
+							<div class="form-group col-sm-6">	
+								<h:outputLabel value="Situação" styleClass="control-label col-sm-2" />
+								 
+								<h:selectOneMenu
+								styleClass="form-select col-sm-10" 
+								value="#{listarTarefasMBean.st_concluidaFiltro}">
+									<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+									<f:selectItem itemValue="false" itemLabel="Em andamento" />
+									<f:selectItem itemValue="true" itemLabel="Concluída" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+								<h:commandButton styleClass="btn btn-warning btn-lg px-4 gap-3" 
+								value="Buscar Tarefas" 
+								action="#{listarTarefasMBean.filtrar}" />
+								<h:commandButton styleClass="btn btn-secondary btn-lg px-4 gap-3" 
+								value="Limpar Busca" 
+								action="/index.jsf">
+								 	
+								</h:commandButton>
+							</div>
+						</div>
+					</div>
+				</h:form>
+		
+				<h:form styleClass="form-horizontal" id="formGrid">
+					<h:messages/>
+					<h:commandButton class="btn btn-primary" value="Nova Atividade" action="#{cadastrarMBean.entrarCadastro}" />
+					
+					<h:dataTable  align="center" class="table table-striped" value="#{listarTarefasMBean.tarefas}" var="tarefa" border="1">
+						<h:column styleClass="align-items-center">
+							
+							<f:facet name="header">Número</f:facet>
+							#{tarefa.id}
+							
+						</h:column>
+						<h:column>
+							<f:facet name="header">Título</f:facet>
+							#{tarefa.titulo}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Responsável</f:facet>
+							#{tarefa.responsavel.nome}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Ações</f:facet>
+							<h:commandButton  class="btn btn-info" disabled="#{(tarefa.st_concluida)}" action="#{cadastrarMBean.editar(tarefa)}" value="Editar"/> | 
+							<h:commandButton  class="btn btn-danger" disabled="#{(tarefa.st_concluida)}" action="#{listarTarefasMBean.excluir(tarefa)}" value="Excluir"/> | 
+							<h:commandButton  class="btn btn-success" disabled="#{(tarefa.st_concluida)}" action="#{listarTarefasMBean.concluir(tarefa)}" value="Concluir"/>
+						</h:column>
+					</h:dataTable>
+					
+				</h:form>
+			</div>
+		</div>
+	</h:body>
+</html>

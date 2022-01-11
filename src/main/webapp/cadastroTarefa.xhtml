@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+	
+<h:head> 
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<title>Nova Tarefa</title>
+</h:head>
+
+<h:body>
+	<div class="container">
+  		<div class="navbar navbar-inverse">
+            <div class="navbar-brand">Nova Tarefa</div>
+        </div>
+        <div class="row">
+        	<h:messages class="row"/>
+            <div class="col-xs-12 col-xs-updated">
+		        <h:form styleClass="form-horizontal needs-validation">
+					 <div class="form-group">
+					
+							<h:outputLabel value="Título" styleClass="control-label col-sm-2" />
+							<div class="col-sm-10">
+							<h:inputText styleClass="form-control" value="#{cadastrarMBean.tarefa.titulo}" size="50" required="true" requiredMessage="Título: Campo obrigatório.">
+								<f:validateLength minimum="10" maximum="200" /> 
+							</h:inputText>
+							</div>
+					 </div>
+					 <div class="form-group">
+						<h:outputLabel value="Descrição" styleClass="control-label col-sm-2" /> 
+						<div class="form-group">	
+							<h:inputTextarea styleClass="form-control" value="#{cadastrarMBean.tarefa.descricao}" cols="50" rows="4" required="true" requiredMessage="Descrição: Campo obrigatório.">
+								<f:validateLength minimum="15" maximum="600" />
+							</h:inputTextarea>
+						</div>
+					</div>
+					<div class="input-group">
+					 	<div class="form-group col-sm-4">	
+							<h:outputLabel value="Responsável" styleClass="control-label col-sm-2" /> 
+							<h:selectOneMenu 
+								styleClass="form-select" 
+								required="true"
+								id="Responsavel"
+		                        value="#{cadastrarMBean.tarefa.responsavel}"
+		                        converter="responsavelConverter">
+		                        	<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+		                        	<f:selectItems value="#{cadastrarMBean.responsaveis}" var="responsavel"
+		                            itemLabel="#{responsavel.nome}" itemValue="#{responsavel}" />
+	                    	</h:selectOneMenu>
+						</div>
+						<div class="form-group col-sm-4">	
+							<h:outputLabel value="Prioridade" styleClass="control-label col-sm-2" />
+							 
+							<h:selectOneMenu 
+							styleClass="form-control form-select"
+							required="true"
+							id="Prioridade"
+	                        value="#{cadastrarMBean.tarefa.prioridade}"
+	                        converter="prioridadeConverter">
+	                        	<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+	                        	<f:selectItems value="#{cadastrarMBean.prioridades}" var="prioridade"
+	                            itemLabel="#{prioridade.ds_prioridade}" itemValue="#{prioridade}" />
+	                    	</h:selectOneMenu>
+						</div>
+						<div class="form-group col-sm-4">
+							<h:outputLabel value="Deadline" styleClass="control-label col-sm-2" />
+						
+							<h:inputText styleClass="form-control" value="#{cadastrarMBean.tarefa.deadline}" size="5" maxlength="10"  required="true" requiredMessage="Deadline: Campo obrigatório.">
+							<f:convertDateTime pattern="dd/MM/yyyy" /> 
+							</h:inputText>
+						</div>
+					</div>
+						
+					<div class="form-group"> 
+						<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+						
+							<h:commandButton styleClass="btn btn-success btn-lg px-4 gap-3" value="Cadastrar" action="#{cadastrarMBean.cadastrar}" />
+							<h:commandButton styleClass="btn btn-outline-secondary btn-lg px-4" value="Cancelar" action="#{cadastrarMBean.cancelar}" immediate="true"/>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
